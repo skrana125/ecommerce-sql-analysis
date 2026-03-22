@@ -1,4 +1,3 @@
-# ecommerce-sql-analysis
 # E-Commerce Database Analysis Project
 
 ## Project Overview
@@ -66,8 +65,3 @@ Step 4:
 
 Run queries from:
 
-queries folder
-
-## Author
-
-Sumit Rana
