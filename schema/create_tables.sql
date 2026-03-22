@@ -1,28 +1,56 @@
-INSERT INTO Customers VALUES
-(1,'Sumit','sumit@gmail.com','Bangalore','2024-01-01'),
-(2,'Rahul','rahul@gmail.com','Delhi','2024-02-01'),
-(3,'Amit','amit@gmail.com','Mumbai','2024-03-01');
+CREATE TABLE Customers(
+customer_id INT PRIMARY KEY,
+name VARCHAR(100),
+email VARCHAR(100),
+city VARCHAR(50),
+signup_date DATE
+);
 
-INSERT INTO Categories VALUES
-(1,'Electronics'),
-(2,'Clothing');
+CREATE TABLE Categories(
+category_id INT PRIMARY KEY,
+category_name VARCHAR(50)
+);
 
-INSERT INTO Products VALUES
-(1,'Laptop',1,80000,10),
-(2,'Mobile',1,30000,20),
-(3,'Shirt',2,2000,50);
+CREATE TABLE Products(
+product_id INT PRIMARY KEY,
+product_name VARCHAR(100),
+category_id INT,
+price DECIMAL(10,2),
+stock INT,
+FOREIGN KEY(category_id)
+REFERENCES Categories(category_id)
+);
 
-INSERT INTO Orders VALUES
-(101,1,'2024-05-01','Delivered'),
-(102,2,'2024-05-02','Delivered'),
-(103,1,'2024-05-10','Shipped');
+CREATE TABLE Orders(
+order_id INT PRIMARY KEY,
+customer_id INT,
+order_date DATE,
+order_status VARCHAR(30),
+FOREIGN KEY(customer_id)
+REFERENCES Customers(customer_id)
+);
 
-INSERT INTO Order_Items VALUES),
-(2,101,3,2,4000),
-(3,102,2,1,30000),
-(4,103,2,1,30000);
+CREATE TABLE Order_Items(
+order_item_id INT PRIMARY KEY,
+order_id INT,
+product_id INT,
+quantity INT,
+price DECIMAL(10,2),
 
-INSERT INTO Payments VALUES
-(1,101,'2024-05-01',84000,'UPI'),
-(2,102,'2024-05-02',30000,'Card'),
-(3,103,'2024-05-10',30000,'UPI');
+FOREIGN KEY(order_id)
+REFERENCES Orders(order_id),
+
+FOREIGN KEY(product_id)
+REFERENCES Products(product_id)
+);
+
+CREATE TABLE Payments(
+payment_id INT PRIMARY KEY,
+order_id INT,
+payment_date DATE,
+amount DECIMAL(10,2),
+payment_method VARCHAR(50),
+
+FOREIGN KEY(order_id)
+REFERENCES Orders(order_id)
+);
